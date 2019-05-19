@@ -1,18 +1,18 @@
 <template>
   <div>
     <div>
-      <div>
-        <div class="week">15孕周</div>
-        <div class="things">
+      <div v-for="weekItem in list" :key="weekItem.week">
+        <div class="week">{{weekItem.week}}孕周</div>
+        <div class="things" v-for="item in weekItem.children" :key="item.id">
           <div class="left">
-            <p class="task">给宝宝唱儿歌</p>
-            <p class="time">过期时间：2019.03.06</p>
+            <p class="task">{{item.title}}</p>
+            <p class="time">{{showSubTitle(item)}}</p>
           </div>
           <div class="right">
             <div class="border-5e9bf8"><p class="viewdetail">查看详情</p></div>
-            <div class="triangle"><p>已过期</p></div>
+            <div class="triangle"><p>{{statusLabelMaps[item.status]}}</p></div>
           </div>
-        </div>
+      </div>
       </div>
       <!-- <div>
           <div class="week">16孕周（当前）</div>
@@ -70,7 +70,50 @@
 
 <script>
 export default {
-  name: 'commonTask'
+  name: 'commonTask',
+  data () {
+    return {
+      statusLabelMaps: {
+        0: '已过期',
+        1: '已完成',
+        2: '进行中'
+      },
+      list: [{
+        week: '15',
+        children: [{
+          id: 0,
+          title: '给宝宝唱儿歌',
+          time: '2019.03.06',
+          status: 0 // 0 已过期   1 已完成   2进行中
+        }]
+      }, {
+        week: '16',
+        children: [{
+          id: 1,
+          title: '给宝宝讲故事',
+          time: '2019.02.22',
+          status: 1 // 0 已过期   1 已完成   2进行中
+        }, {
+          id: 2,
+          title: '注意口腔卫生',
+          time: '2019.02.22',
+          status: 2 // 0 已过期   1 已完成   2进行中
+        }]
+      }]
+    }
+  },
+  methods: {
+    showSubTitle ({ status, time }) {
+      if (status === 0) {
+        return `过期时间${time}`
+      } else if (status === 1) {
+        return `完成时间${time}`
+      } else if (status === 2) {
+        return '进行中'
+      }
+      return ''
+    }
+  }
 }
 </script>
 
@@ -104,6 +147,7 @@ export default {
     border-radius: 6px;
   }
   .task{
+    position: relative;
     text-align: left;
     font-size: 16px;
     color: #666;
