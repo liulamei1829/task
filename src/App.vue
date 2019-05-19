@@ -22,4 +22,11 @@
     }
   }
 }
+*{
+    margin: 0;
+    padding: 0;
+  }
+  body{
+    background: #F8F8F8;
+  }
 </style>
