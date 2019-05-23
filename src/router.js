@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import CommonTask from './views/CommonTask.vue'
+import PregCheck from './views/PregCheck.vue'
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/commonTask',
       name: 'commonTask',
       component: CommonTask
+    },
+    {
+      path: '/PregCheck',
+      name: 'PregCheck',
+      component: PregCheck
     }
   ]
 })
